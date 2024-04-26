@@ -57,7 +57,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
             return node;
         }
     }
-
+    //TODO fix preorden method
     public String preorden(){
         StringBuilder str = new StringBuilder();
         preorden(this.root, str);
@@ -70,6 +70,42 @@ public class BinarySearchTree<T extends Comparable<T>> {
         }
     }
 
+    public void remove(T value) {
+        root = deleteNode(root, value);
+    }
+
+    private Node<T> deleteNode(Node<T> node, T value) {
+        if (node == null) {
+            return null;
+        }
+
+        if (value.compareTo(node.getValue()) < 0) {
+            node.setLeft(deleteNode(node.getLeft(), value));
+        } else if (value.compareTo(node.getValue()) > 0) {
+            node.setRight(deleteNode(node.getRight(), value));
+        } else {
+            if (node.getLeft() == null) {
+                return node.getRight();
+            } else if (node.getRight() == null) {
+                return node.getLeft();
+            }
+
+            Node<T> successor = findMin(node.getRight());
+            node.setValue(successor.getValue());
+
+            node.setRight(deleteNode(node.getRight(), successor.getValue()));
+        }
+
+        return node;
+    }
+
+    public Node<T> findMin(Node<T> node) {
+        while (node.getLeft() != null) {
+            node = node.getLeft();
+        }
+        return node;
+    }
+
     private void preorden(Node<T> node, StringBuilder str){
 
         if (node != null){
@@ -77,6 +113,14 @@ public class BinarySearchTree<T extends Comparable<T>> {
             preorden(node.getLeft(), str);
             preorden(node.getRight(), str);
         }
+    }
+
+    public void setRoot(Node<T> node){
+        this.root = node;
+    }
+
+    public Node<T> getRoot(){
+        return this.root;
     }
 
 

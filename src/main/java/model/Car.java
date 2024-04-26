@@ -1,7 +1,6 @@
 package model;
 
-public class Car {
-
+public class Car implements  Comparable<Car>{
     private String brand;
     private String model;
     private String plate;
@@ -10,6 +9,11 @@ public class Car {
         this.brand = brand;
         this.model = model;
         this.plate = plate;
+    }
+
+    @Override
+    public int compareTo(Car otherCar){
+        return this.plate.compareTo(otherCar.plate);
     }
 
     public String getBrand() {
