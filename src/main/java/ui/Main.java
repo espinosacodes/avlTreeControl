@@ -36,13 +36,24 @@ public class Main {
 
         System.out.println("-------------------");
 
+
         //5) Se compra el auto Toyota Prius con placa QEE419
         Car car5 = new Car("Toyota", "Prius", "QEE419");
         avl.insert(car5);
         System.out.println(avl.find(car5).getValue());
 
         System.out.println("-------------------");
+        //if avl.preorder here it should show GUI,ESP,QEE,JKB,TRM
 
+
+        System.out.println(avl.preorden());
+
+    }
+}
+
+
+
+        /*
 
         //6) Se vende el auto Mazda 3 con placa GUI512
         avl.remove(car3);
@@ -76,7 +87,6 @@ public class Main {
 
         //pre orden
 
-        System.out.println(avl.preorden());
+         */
 
-    }
-}
+

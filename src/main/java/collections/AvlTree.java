@@ -9,9 +9,13 @@ public class AvlTree<T extends Comparable<T>> extends BinarySearchTree<T> {
     @Override
     public Node<T> insert(T value) {
         Node<T> newNode = super.insert(value); // Insertamos el nodo normalmente
+
         if (newNode != null) {
             setRoot(balance(getRoot())); // Reequilibramos el árbol después de la inserción
         }
+
+
+
         return newNode;
     }
 
@@ -45,26 +49,35 @@ public class AvlTree<T extends Comparable<T>> extends BinarySearchTree<T> {
     }
 
     // Método para reequilibrar el árbol AVL
+    // Método para reequilibrar el árbol AVL
     public Node<T> balance(Node<T> node) {
         // Calculamos el factor de equilibrio para el nodo dado
         int balanceFactor = getBalanceFactor(node);
 
         // Si el nodo está desequilibrado, reequilibramos
         if (balanceFactor > 1) {
-            // Rotación a la derecha
-            if (getBalanceFactor(node.getLeft()) < 0) {
+            // Caso Izquierda-Izquierda (LL) o Izquierda-Derecha (LR)
+            if (getBalanceFactor(node.getLeft()) >= 0) {
+                // Caso LL: Rotación a la derecha
+                return rightRotation(node);
+            } else {
+                // Caso LR: Doble rotación (izquierda y luego derecha)
                 node.setLeft(leftRotation(node.getLeft()));
+                return rightRotation(node);
             }
-            return rightRotation(node);
-        }
-        if (balanceFactor < -1) {
-            // Rotación a la izquierda
-            if (getBalanceFactor(node.getRight()) > 0) {
+        } else if (balanceFactor < -1) {
+            // Caso Derecha-Derecha (RR) o Derecha-Izquierda (RL)
+            if (getBalanceFactor(node.getRight()) <= 0) {
+                // Caso RR: Rotación a la izquierda
+                return leftRotation(node);
+            } else {
+                // Caso RL: Doble rotación (derecha y luego izquierda)
                 node.setRight(rightRotation(node.getRight()));
+                return leftRotation(node);
             }
-            return leftRotation(node);
         }
 
+        // Si el nodo está equilibrado, simplemente lo devolvemos
         return node;
     }
 
