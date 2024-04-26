@@ -16,6 +16,8 @@ public class AvlTree<T extends Comparable<T>> extends BinarySearchTree<T> {
 
 
 
+
+
         return newNode;
     }
 
@@ -108,4 +110,32 @@ public class AvlTree<T extends Comparable<T>> extends BinarySearchTree<T> {
         if (node == null) return 0;
         return 1 + Math.max(height(node.getLeft()), height(node.getRight()));
     }
+
+    @Override
+    public String preorden(){
+
+        return preordenR(getRoot());
+    }
+
+    private String preordenR(Node root) {
+        StringBuilder sb = new StringBuilder();
+        preordenH(root, sb);
+        return sb.toString();
+    }
+
+    private void preordenH(Node<T> node, StringBuilder str) {
+        if (node != null) {
+            str.append(node.getValue()).append(", "); // Primero visitamos la raíz
+            preordenH(node.getLeft(), str); // Luego el subárbol izquierdo
+            preordenH(node.getRight(), str); // Finalmente el subárbol derecho
+        }
+    }
+
+
+    @Override
+    public Node<T> preorden(T value) {
+        return null;
+    }
+
+
 }
