@@ -1,4 +1,4 @@
-package model;
+package src;
 
 public class Car implements  Comparable<Car>{
     private String brand;
